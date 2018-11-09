@@ -15,6 +15,7 @@ const routes = require('../src/routes/index');
 const port = 7000;
 const connection = require('../src/connectMysql/connect');
 const connectMiddleware = require('../src/middleware/connection');
+const reqParamsMiddleware = require('../src/middleware/reqParamsMiddleware');
 
 const app = new express();
 const upload = multer({ dest: 'upload/' }); // 用于处理 enctype="multipart/form-data"（设置表单的MIME编码）的表单数据。
@@ -35,6 +36,10 @@ app.set('view engine', 'html');
 
 // 将connection.query方法挂载到req上
 app.use(connectMiddleware(connection));
+
+// 整合http请求参数到req.reqParams上
+app.use(reqParamsMiddleware());
+
 app.use(devMiddleware(compiler, {
     noInfo: true,
     // 如果false，将会给你列出一大堆无聊的信息。
@@ -43,6 +48,7 @@ app.use(devMiddleware(compiler, {
         colors: true
     }
 }));
+// 路由入口
 app.use('*', routes);
 // app.use(hotMiddleware(compiler));
 app.listen(port, () => {

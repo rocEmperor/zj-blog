@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 // const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const ROOT_PATH = path.resolve(__dirname);
@@ -39,10 +40,10 @@ module.exports = {
                 exclude: /node_modules/
             }, {
                 test: /\.css$/,
-                use: ["style-loader", "css-loader", "postcss-loader"]
+                use: ["style-loader", "css-loader"]
             }, {
                 test: /\.less$/,
-                use: ["style-loader", "css-loader", "less-loader", "postcss-loader"]
+                use: ["style-loader", "css-loader", "less-loader"]
             }, {
                 test: /\.(png|jpg|gif)$/,
                 use: [
@@ -57,6 +58,11 @@ module.exports = {
         ]
     },
     plugins: [
+        // 在js文件中使用 $ 时自动加载jquery，不用单独import
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+            jQuery: 'jquery'
+        })
         // new HtmlWebpackPlugin({
         //     filename: 'index.html',
         //     template: path.resolve(APP_PATH, '../dev-server/index.html')
