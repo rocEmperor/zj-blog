@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
-// const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 const ROOT_PATH = path.resolve(__dirname);
 const APP_PATH = path.resolve(ROOT_PATH, '../src');
@@ -16,8 +17,8 @@ module.exports = {
     },
     output: {
         path: BUILD_PATH,
-        publicPath: '/assets/js/',
-        filename: '[name].js',
+        publicPath: '/dist/js/',
+        filename: 'js/[name]-[hash].js',
         chunkFilename: "[name].js"
     },
     resolve: {
@@ -40,10 +41,16 @@ module.exports = {
                 exclude: /node_modules/
             }, {
                 test: /\.css$/,
-                use: ["style-loader", "css-loader"]
+                use: ExtractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: ["css-loader", "postcss-loader"]
+                })
             }, {
                 test: /\.less$/,
-                use: ["style-loader", "css-loader", "less-loader"]
+                use: ExtractTextPlugin.extract({
+                    fallback: "style-loader",
+                    use: ["css-loader", "postcss-loader", "less-loader"]
+                })
             }, {
                 test: /\.(png|jpg|gif)$/,
                 use: [
@@ -62,10 +69,11 @@ module.exports = {
         new webpack.ProvidePlugin({
             $: 'jquery',
             jQuery: 'jquery'
-        })
-        // new HtmlWebpackPlugin({
-        //     filename: 'index.html',
-        //     template: path.resolve(APP_PATH, '../dev-server/index.html')
-        // })
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'index.html',
+            template: path.resolve(APP_PATH, '../dev-server/index.html')
+        }),
+        new ExtractTextPlugin("styles.css") // 提取css文件
     ]
 };
