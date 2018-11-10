@@ -1,3 +1,5 @@
+require('babel-register');
+
 // const hotMiddleware = require('webpack-hot-middleware');
 const devMiddleware = require('webpack-dev-middleware');
 const express = require('express');
