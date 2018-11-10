@@ -1,24 +1,24 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 const ROOT_PATH = path.resolve(__dirname);
 const APP_PATH = path.resolve(ROOT_PATH, '../src');
 const ENTRY_PATH = path.resolve(APP_PATH, 'index.js');
 const BUILD_PATH = path.resolve(ROOT_PATH, '../dist');
+
 module.exports = {
     entry: {
         // app: [
         //     // 这里reload=true的意思是，如果碰到不能hot reload的情况，就整页刷新。
         //     'webpack-hot-middleware/client?reload=true', ENTRY_PATH
         // ]
-        index: path.resolve(APP_PATH, './js/home.js')
+        home: path.resolve(APP_PATH, './js/home.js'),
+        cunt: path.resolve(APP_PATH, './js/home.js')
     },
     output: {
         path: BUILD_PATH,
-        publicPath: '/dist/js/',
-        filename: 'js/[name]-[hash].js',
+        filename: 'js/[name].js',
         chunkFilename: "[name].js"
     },
     resolve: {
@@ -41,16 +41,10 @@ module.exports = {
                 exclude: /node_modules/
             }, {
                 test: /\.css$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: "style-loader",
-                    use: ["css-loader", "postcss-loader"]
-                })
+                use: ["style-loader", "css-loader", "postcss-loader"]
             }, {
                 test: /\.less$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: "style-loader",
-                    use: ["css-loader", "postcss-loader", "less-loader"]
-                })
+                use: ["style-loader", "css-loader", "postcss-loader", "less-loader"]
             }, {
                 test: /\.(png|jpg|gif)$/,
                 use: [
@@ -61,6 +55,10 @@ module.exports = {
                         }
                     }
                 ]
+            },
+            {
+                test: /\.ejs$/,
+                loader: 'html-loader'
             }
         ]
     },
@@ -71,9 +69,14 @@ module.exports = {
             jQuery: 'jquery'
         }),
         new HtmlWebpackPlugin({
-            filename: 'index.html',
-            template: path.resolve(APP_PATH, '../dev-server/index.html')
+            filename: 'view/home.ejs',
+            template: path.resolve(APP_PATH, '../src/view/home.ejs'),
+            chunks:['home']
         }),
-        new ExtractTextPlugin("styles.css") // 提取css文件
+        new HtmlWebpackPlugin({
+            filename: 'view/cunt.ejs',
+            template: path.resolve(APP_PATH, '../src/view/home.ejs'),
+            chunks:['cunt']
+        })
     ]
 };
