@@ -10,7 +10,7 @@ const homeService = {
             target.city = item.city;
             target.maio_shu = item.maio_shu;
         })
-        console.log(target, ';;;;;;;;;;;;;;;;;')
+        // console.log(target, ';;;;;;;;;;;;;;;;;')
         return target;
     }
 }

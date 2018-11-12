@@ -1,13 +1,12 @@
 const path = require('path');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const ROOT_PATH = path.resolve(__dirname);
 const APP_PATH = path.resolve(ROOT_PATH, '../src');
 const ENTRY_PATH = path.resolve(APP_PATH, 'index.js');
 const BUILD_PATH = path.resolve(ROOT_PATH, '../dist');
 
-module.exports = {
+let config = {
     entry: {
         // app: [
         //     // 这里reload=true的意思是，如果碰到不能hot reload的情况，就整页刷新。
@@ -18,7 +17,7 @@ module.exports = {
     },
     output: {
         path: BUILD_PATH,
-        filename: 'js/[name].js',
+        filename: 'js/[name]-[hash:8].js',
         chunkFilename: "[name].js"
     },
     resolve: {
@@ -67,16 +66,8 @@ module.exports = {
         new webpack.ProvidePlugin({
             $: 'jquery',
             jQuery: 'jquery'
-        }),
-        new HtmlWebpackPlugin({
-            filename: 'view/home.ejs',
-            template: path.resolve(APP_PATH, '../src/view/home.ejs'),
-            chunks:['home']
-        }),
-        new HtmlWebpackPlugin({
-            filename: 'view/cunt.ejs',
-            template: path.resolve(APP_PATH, '../src/view/home.ejs'),
-            chunks:['cunt']
         })
     ]
 };
+
+module.exports = config;
