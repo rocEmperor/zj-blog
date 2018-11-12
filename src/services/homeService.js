@@ -8,7 +8,7 @@ const homeService = {
         data.map((item) => {
             target.id = item.id;
             target.city = item.city;
-            target.maio_shu = item.maio_shu;
+            target.describe  = item.describe ;
         })
         // console.log(target, ';;;;;;;;;;;;;;;;;')
         return target;

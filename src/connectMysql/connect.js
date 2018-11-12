@@ -1,10 +1,10 @@
 const mysql = require('mysql');
 const connection = mysql.createConnection({
-  host: 'ieonline.microsoft.com',
+  host: '192.168.1.112',
   port: '3306',
   user: 'root',
-  password : '123456',
-  database : 'lupeng'
+  password : 'zhujia360!@#',
+  database : 'zj_blog'
 });
  
 connection.connect();
