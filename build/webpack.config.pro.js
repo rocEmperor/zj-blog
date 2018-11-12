@@ -62,7 +62,7 @@ config.plugins.push(
         title: 'count'
     })
 )
-config.plugins.push(new ExtractTextPlugin('css/[name].css')); // 提取css文件
+config.plugins.push(new ExtractTextPlugin('css/[name]-[hash:8].css')); // 提取css文件
 config.plugins.push(new optimizeCss()); // 压缩css文件
 
 module.exports = config;

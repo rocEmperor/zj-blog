@@ -39,7 +39,6 @@
     "nunjucks": "^3.1.4",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "postcss-loader": "^3.0.0",
-    "serve-static": "^1.13.2",
     "style-loader": "^0.23.1",
     "url-loader": "^1.1.2",
     "webpack": "^4.25.1",
@@ -50,6 +49,7 @@
     "babel-runtime": "^6.26.0",
     "ejs": "^2.6.1",
     "jquery": "^3.3.1",
+    "morgan": "^1.9.1",
     "mysql": "^2.16.0"
   }
 }

@@ -3,14 +3,15 @@ require('babel-register');
 const devMiddleware = require('webpack-dev-middleware');
 const express = require('express');
 const path = require('path');
+const fs = require('fs');
 const webpack = require('webpack');
 // const nunjucks  = require('nunjucks');
-// const serveStatic = require('serve-static');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const multer  = require('multer');
 const config = require('../build/webpack.config.dev');
 const ejs = require('ejs');
+const morgan = require('morgan');
 const compiler = webpack(config);
 const routes = require('../src/routes/index');
 const port = 7000;
@@ -28,6 +29,10 @@ app.use(cookieParser()); // 这就是一个解析Cookie的工具。通过req.coo
 
 app.use('/js', express.static(path.join(__dirname, '../dist/js')));
 app.use('/css', express.static(path.join(__dirname, '../dist/css')));
+
+const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), {flags: 'a'});
+app.use(morgan('short', {stream: accessLogStream}));
+
 if (NODE_ENV === 'production') {
     app.use('/scriptsDev/*', function (req, res, next) {
         res.send('');
@@ -42,6 +47,8 @@ if (NODE_ENV === 'development') {
 } else if (NODE_ENV === 'production') {
     ejsSrc = '../dist/view'
 }
+
+// ejs 配置
 app.set('views', path.join(__dirname , ejsSrc) );
 app.engine('.html', ejs.__express); 
 app.set('view engine', 'html');
@@ -56,7 +63,7 @@ if (NODE_ENV === 'development') {
     app.use(devMiddleware(compiler, {
         noInfo: true,
         // 如果false，将会给你列出一大堆无聊的信息。
-        publicPath: 'http://127.0.0.1:7000/scriptsDev/',
+        publicPath: 'http://127.0.0.1:7000/scripts/',
         stats: {
             colors: true
         }
