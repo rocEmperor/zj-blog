@@ -7,7 +7,7 @@ config.devtool = 'cheap-module-source-map';
  * */
 config.mode = 'development';
 
-config.plugins.push(new webpack.optimize.OccurrenceOrderPlugin());
-config.plugins.push(new webpack.NoEmitOnErrorsPlugin());
+// config.plugins.push(new webpack.optimize.OccurrenceOrderPlugin());
+// config.plugins.push(new webpack.NoEmitOnErrorsPlugin());
 
 module.exports = config;

@@ -1,6 +1,6 @@
-import '../less/home.less';
+import '../less/menu.less';
 import '../../bootstrap/css/bootstrap.min.css'
 
 window.onload = function () {
-    console.log($, '22');
+    console.log($, '6666');
 }

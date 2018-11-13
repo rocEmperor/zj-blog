@@ -13,7 +13,7 @@ let config = {
         //     'webpack-hot-middleware/client?reload=true', ENTRY_PATH
         // ]
         home: [path.resolve(APP_PATH, './js/home.js')],
-        cunt: [path.resolve(APP_PATH, './js/home.js')]
+        menu: [path.resolve(APP_PATH, './js/menu.js')]
     },
     output: {
         path: BUILD_PATH,
@@ -29,6 +29,29 @@ let config = {
             'node_modules',
             'src'
         ]
+    },
+    optimization: {
+        splitChunks: {
+          cacheGroups: {
+                // 注意: priority属性
+                // 其次: 打包业务中公共代码
+                bootstrapCss: {
+                    name: "bootstrapCss",
+                    test: /\.css$/,
+                    chunks: "all",
+                    minSize: 30000,
+                    enforce: true,
+                    priority: 20
+                },
+                // 首先: 打包node_modules中的文件
+                vendor: {
+                    name: "vendor",
+                    test: /[\\/]node_modules[\\/]/,
+                    chunks: "all",
+                    priority: 10
+                }
+            }
+        }
     },
     module: {
         rules: [

@@ -7,7 +7,7 @@
     "dev": "npm run start",
     "start": "cross-env NODE_ENV=development supervisor dev-server/server.js",
     "pro": "cross-env NODE_ENV=production supervisor dev-server/server.js",
-    "build": "npm run clean && webpack --config build/webpack.config.pro.js",
+    "build": "npm run clean && webpack --progress --color --config build/webpack.config.pro.js",
     "clean": "rimraf dist/*",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

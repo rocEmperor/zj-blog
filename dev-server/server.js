@@ -29,6 +29,7 @@ app.use(cookieParser()); // 这就是一个解析Cookie的工具。通过req.coo
 
 app.use('/js', express.static(path.join(__dirname, '../dist/js')));
 app.use('/css', express.static(path.join(__dirname, '../dist/css')));
+app.use(express.static(path.join(__dirname, '../dist')));
 
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), {flags: 'a'});
 app.use(morgan('short', {stream: accessLogStream}));
@@ -63,7 +64,7 @@ if (NODE_ENV === 'development') {
     app.use(devMiddleware(compiler, {
         noInfo: true,
         // 如果false，将会给你列出一大堆无聊的信息。
-        publicPath: 'http://127.0.0.1:7000/scripts/',
+        publicPath: 'http://127.0.0.1:7000/scriptsDev/',
         stats: {
             colors: true
         }

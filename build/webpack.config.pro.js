@@ -52,14 +52,14 @@ config.plugins.push(
     new HtmlWebpackPlugin({
         filename: 'view/home.ejs',
         template: path.resolve(APP_PATH, '../src/view/home.ejs'),
-        chunks:['home'],
+        chunks:['home', 'bootstrapCss', 'vendor'],
         title: 'home'
     }),
     new HtmlWebpackPlugin({
-        filename: 'view/cunt.ejs',
-        template: path.resolve(APP_PATH, '../src/view/home.ejs'),
-        chunks:['cunt'],
-        title: 'count'
+        filename: 'view/menu.ejs',
+        template: path.resolve(APP_PATH, '../src/view/menu.ejs'),
+        chunks:['menu', 'bootstrapCss', 'vendor'],
+        title: 'menu'
     })
 )
 config.plugins.push(new ExtractTextPlugin('css/[name]-[hash:8].css')); // 提取css文件
