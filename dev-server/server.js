@@ -16,6 +16,7 @@ const compiler = webpack(config);
 const routes = require('../src/routes/index');
 const port = 7000;
 const connection = require('../src/connectMysql/connect');
+const renderEjsMiddleware = require('../src/middleware/renderEjs');
 const connectMiddleware = require('../src/middleware/connection');
 const reqParamsMiddleware = require('../src/middleware/reqParams');
 const NODE_ENV = process.env.NODE_ENV;
@@ -59,6 +60,8 @@ app.use(connectMiddleware(connection));
 
 // 整合http请求参数到req.reqParams上
 app.use(reqParamsMiddleware());
+
+app.use(renderEjsMiddleware());
 
 if (NODE_ENV === 'development') {
     app.use(devMiddleware(compiler, {

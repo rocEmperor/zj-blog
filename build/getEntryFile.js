@@ -1,10 +1,8 @@
 const fs = require('fs');
 const path = require('path');
-const express = require('express');
-const router = express.Router();
 
-// 获取所有路由文件名
-function findSync (startPath) {
+// 获取所有入口文件
+module.exports = function findSync (startPath) {
     let result = [];
     let join = path.join;
     function finder (path) {
@@ -12,6 +10,7 @@ function findSync (startPath) {
         files.forEach((val, index) => {
             let fPath= join(path, val);
             let stats= fs.statSync(fPath);
+            // if(stats.isDirectory()) finder(fPath);
             if(stats.isFile()) result.push(val);
         });
 
@@ -19,11 +18,3 @@ function findSync (startPath) {
     finder(startPath);
     return result;
 }
-let routes = findSync(__dirname);
-routes.forEach((item) => {
-    if (item.indexOf('index.js') == -1) {
-        router.use(require(`./${item}`));
-    }
-})
-
-module.exports = router;

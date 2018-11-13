@@ -1,10 +1,19 @@
 const path = require('path');
 const webpack = require('webpack');
+const findSync = require('./getEntryFile');
 
 const ROOT_PATH = path.resolve(__dirname);
 const APP_PATH = path.resolve(ROOT_PATH, '../src');
 const BUILD_PATH = path.resolve(ROOT_PATH, '../dist');
 const NODE_ENV = process.env.NODE_ENV;
+
+// 获取所有入口文件
+let entries = {};
+let entryFiles = findSync(path.resolve(ROOT_PATH, '../src/js'));
+entryFiles.forEach((val) => {
+    let name = val.split('.')[0];
+    entries[name] = [path.resolve(APP_PATH, `./js/${val}`)]
+})
 
 let config = {
     entry: {
@@ -12,8 +21,7 @@ let config = {
         //     // 这里reload=true的意思是，如果碰到不能hot reload的情况，就整页刷新。
         //     'webpack-hot-middleware/client?reload=true', ENTRY_PATH
         // ]
-        home: [path.resolve(APP_PATH, './js/home.js')],
-        menu: [path.resolve(APP_PATH, './js/menu.js')]
+        ...entries
     },
     output: {
         path: BUILD_PATH,

@@ -14,7 +14,16 @@
         </div>
     </div>
 </body>
-<script type="text/javascript" src="http://127.0.0.1:7000/scriptsDev/js/menu.js"></script>
-<script type="text/javascript" src="http://127.0.0.1:7000/scriptsDev/bootstrapCss.js"></script>
-<script type="text/javascript" src="http://127.0.0.1:7000/scriptsDev/vendor.js"></script>
+<script>
+    let nodeEnv = '<%- nodeEnv %>';
+    if (nodeEnv === 'development') {
+        let jsFiles = '<%- jsFiles %>';
+        jsFiles.split(',').forEach((item) => {
+            let body = document.querySelector('body');
+            let script = document.createElement('script');
+            script.src = "http://127.0.0.1:7000/scriptsDev/" + item + ".js";
+            body.appendChild(script);
+        })
+    }  
+</script>
 </html>
