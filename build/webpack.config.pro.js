@@ -22,6 +22,28 @@ entryFiles.forEach((val) => {
  * */
 config.mode = 'production';
 
+config.optimization = {};
+config.optimization.splitChunks = {};
+config.optimization.splitChunks.cacheGroups = {
+    // 注意: priority属性
+    // 其次: 打包业务中公共代码
+    bootstrapCss: {
+        name: "bootstrapCss",
+        test: /\.css$/,
+        chunks: "all",
+        minSize: 30000,
+        enforce: true,
+        priority: 20
+    },
+    // 首先: 打包node_modules中的文件
+    vendor: {
+        name: "vendor",
+        test: /[\\/]node_modules[\\/]/,
+        chunks: "all",
+        priority: 10
+    }
+}
+
 config.module.rules = [
     {
         test: /(\.jsx|\.js)$/,
@@ -47,16 +69,21 @@ config.module.rules = [
             {
                 loader: 'url-loader',
                 options: {
-                    limit: 8192
+                    limit: 8192,
+                    name: 'imgs/[name]-[hash:8].[ext]'
                 }
+            },
+            {
+                loader: 'image-webpack-loader' // 压缩图片
             }
         ]
-    },
-    {
+    }, {
         test: /\.ejs$/,
         loader: 'html-loader'
     }
 ]
+
+// 根据html模板生成对应页面
 entryFiles.forEach((item) => {
     let name = item.split('.')[0];
     config.plugins.push(new HtmlWebpackPlugin({
@@ -66,20 +93,7 @@ entryFiles.forEach((item) => {
         title: name
     }))
 })
-// config.plugins.push(
-//     new HtmlWebpackPlugin({
-//         filename: 'view/home.ejs',
-//         template: path.resolve(APP_PATH, '../src/view/home.ejs'),
-//         chunks:['home', 'bootstrapCss', 'vendor'],
-//         title: 'home'
-//     }),
-//     new HtmlWebpackPlugin({
-//         filename: 'view/menu.ejs',
-//         template: path.resolve(APP_PATH, '../src/view/menu.ejs'),
-//         chunks:['menu', 'bootstrapCss', 'vendor'],
-//         title: 'menu'
-//     })
-// )
+
 config.plugins.push(new ExtractTextPlugin('css/[name]-[hash:8].css')); // 提取css文件
 config.plugins.push(new optimizeCss()); // 压缩css文件
 

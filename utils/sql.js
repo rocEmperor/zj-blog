@@ -18,16 +18,21 @@ function joinArray (params) {
  */
 export function Select (keys, tables, conditions) {
     let sqlString = '';
-    if (!keys || !tables || !conditions) {
+    if (!keys || !tables) {
         erorrRequest('Select_sql params has undefined !');
         return;
     } else {
-        if (!isArray(keys) || !isArray(tables) || !isString(conditions)) {
+        if (!isArray(keys) || !isArray(tables)) {
             erorrRequest('Select_sql params exist type error !');
             return;
         }
     }
-    sqlString = `SELECT ${joinArray(keys)} FROM ${joinArray(tables)} WHERE ${conditions}`;
+    if (conditions) {
+        sqlString = `SELECT ${joinArray(keys)} FROM ${joinArray(tables)} WHERE ${conditions}`;
+    } else {
+        sqlString = `SELECT ${joinArray(keys)} FROM ${joinArray(tables)}`;
+    }
+    
     return sqlString;
 }
 /**

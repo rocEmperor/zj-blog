@@ -2,7 +2,7 @@ import { Select } from '../../utils/sql';
 
 const menuService = {
     infoReq: async (req, res) => {
-        let sql = Select(['*'], ['city_info'], 'id=1');
+        let sql = Select(['*'], ['home_page_menus'], 'id=1');
         let data = await req.mysql(sql);
         let target = {};
         data.map((item) => {

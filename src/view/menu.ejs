@@ -15,15 +15,14 @@
     </div>
 </body>
 <script>
+    // 每个页面都要有以下一段代码
     let nodeEnv = '<%- nodeEnv %>';
     if (nodeEnv === 'development') {
         let jsFiles = '<%- jsFiles %>';
-        jsFiles.split(',').forEach((item) => {
-            let body = document.querySelector('body');
-            let script = document.createElement('script');
-            script.src = "http://127.0.0.1:7000/scriptsDev/" + item + ".js";
-            body.appendChild(script);
-        })
-    }  
+        let body = document.querySelector('body');
+        let script = document.createElement('script');
+        script.src = "./scriptsDev/js/" + jsFiles + ".js";
+        body.appendChild(script);
+    } 
 </script>
 </html>

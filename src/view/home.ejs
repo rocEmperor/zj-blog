@@ -4,27 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>home</title>
+    <link rel="Shortcut Icon" href="../images/favicon.ico" type="image/x-icon"/>
+    <title>墨剑</title>
 </head>
 <body>
-    <div class="city"><%= describe %></div>
-    <div><%= nodeEnv %></div>
-    <div class="progress">
-        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-            <span class="sr-only">60% Complete</span>
+    <div class="home-page">
+        <img class="banner" src="../images/banner1.jpg" alt="banner">
+        <div class="share">
+            <div class="share-title">开源项目</div>
+            <div class="project-box">
+                <%　projectData.forEach(function(item) { %>
+                    <div class="project-item">
+                        <img src="<%= item['img_url']%>" alt="">
+                        <a href="http://www.baidu.com" target="_blank" class="project-name"><%= item['project_name']%></a>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+        <div class="join-us">
+            <div class="key-word">
+                <span>专业</span>
+                <span>开放</span>
+                <span>共享</span>
+            </div>
+            <a href="http://www.baidu.com" target="_blank" class="join-btn">加入我们</a>
+        </div>
+        <div class="train">
+            <div class="train-title">人才培养</div>
+            <div class="train-box">
+                <% trainData.forEach(function(item) { %>
+                    <div class="train-item">
+                        <img src="<%= item['img_url'] %>" alt="">
+                        <a href="http://www.baidu.com" target="_blank" class="train-name"><%= item['train_name']%></a>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+        <div class="article-list">
+            <div class="article-title">
+                技术文章
+            </div>
+            <div class="article-box">
+                <% articleData.forEach(function (item) { %>
+                    <div>
+                        <a  href="http://www.baidu.com" target="_blank"><%= item.title%></a>
+                    </div>
+                <% }) %>
+            </div>
+            <div class="aptitude">
+                <div class="name">墨剑</div>
+                <div class="name">© 2014-2018 墨剑 版权所有 ICP证：浙B2-20080101</div>
+                <div class="name">浙公网安备 33010002000099号</div>
+            </div>
         </div>
     </div>
 </body>
 <script>
+    // 每个页面都要有以下一段代码
     let nodeEnv = '<%- nodeEnv %>';
     if (nodeEnv === 'development') {
         let jsFiles = '<%- jsFiles %>';
-        jsFiles.split(',').forEach((item) => {
-            let body = document.querySelector('body');
-            let script = document.createElement('script');
-            script.src = "http://127.0.0.1:7000/scriptsDev/" + item + ".js";
-            body.appendChild(script);
-        })
+        let body = document.querySelector('body');
+        let script = document.createElement('script');
+        script.src = "./scriptsDev/js/" + jsFiles + ".js";
+        body.appendChild(script);
     }  
 </script>
 </html>

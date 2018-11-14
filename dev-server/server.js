@@ -31,6 +31,7 @@ app.use(cookieParser()); // 这就是一个解析Cookie的工具。通过req.coo
 app.use('/js', express.static(path.join(__dirname, '../dist/js')));
 app.use('/css', express.static(path.join(__dirname, '../dist/css')));
 app.use(express.static(path.join(__dirname, '../dist')));
+app.use('/images', express.static(path.join(__dirname, '../src/images')));
 
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), {flags: 'a'});
 app.use(morgan('short', {stream: accessLogStream}));

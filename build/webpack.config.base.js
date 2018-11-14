@@ -38,29 +38,6 @@ let config = {
             'src'
         ]
     },
-    optimization: {
-        splitChunks: {
-          cacheGroups: {
-                // 注意: priority属性
-                // 其次: 打包业务中公共代码
-                bootstrapCss: {
-                    name: "bootstrapCss",
-                    test: /\.css$/,
-                    chunks: "all",
-                    minSize: 30000,
-                    enforce: true,
-                    priority: 20
-                },
-                // 首先: 打包node_modules中的文件
-                vendor: {
-                    name: "vendor",
-                    test: /[\\/]node_modules[\\/]/,
-                    chunks: "all",
-                    priority: 10
-                }
-            }
-        }
-    },
     module: {
         rules: [
             {
@@ -81,12 +58,12 @@ let config = {
                     {
                         loader: 'url-loader',
                         options: {
-                            limit: 8192
+                            limit: 8192,
+                            name: 'imgs/[name]-[hash:8].[ext]'
                         }
                     }
                 ]
-            },
-            {
+            }, {
                 test: /\.ejs$/,
                 loader: 'html-loader'
             }
