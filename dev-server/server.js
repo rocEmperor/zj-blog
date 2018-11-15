@@ -22,7 +22,7 @@ const reqParamsMiddleware = require('../src/middleware/reqParams');
 const NODE_ENV = process.env.NODE_ENV;
 
 const app = new express();
-const upload = multer({ dest: 'upload/' }); // 用于处理 enctype="multipart/form-data"（设置表单的MIME编码）的表单数据。
+// const upload = multer({ dest: 'upload/' }); // 用于处理 enctype="multipart/form-data"（设置表单的MIME编码）的表单数据。
 
 app.use(bodyParser.urlencoded({ extended: false })); // 用于处理 请求体JSON, Raw, Text 和 URL 编码的数据。
 app.use(bodyParser.json());

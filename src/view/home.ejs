@@ -47,7 +47,7 @@
             <div class="article-box">
                 <% articleData.forEach(function (item) { %>
                     <div>
-                        <a  href="http://www.baidu.com" target="_blank"><%= item.title%></a>
+                        <a href="./article?id=<%= item.id%>" target="_blank"><%= item.title%></a>
                     </div>
                 <% }) %>
             </div>

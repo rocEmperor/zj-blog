@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="Shortcut Icon" href="../images/favicon.ico" type="image/x-icon"/>
+    <title>墨剑</title>
+</head>
+<body>
+    <div class="article-list">
+        <div class="article-box">
+            <div class="header_img"></div>
+            <div class="header">
+                <span class="title"><%= projectData[0].title%></span>
+                <span class="create_at"><%= projectData[0].author%> 发布于 <%= projectData[0].create_at%></span>
+            </div>
+            <div class="content">
+                <%- projectData[0].content.replace(new RegExp("\r\n", "g"), '<br>')%>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    // 每个页面都要有以下一段代码
+    let nodeEnv = '<%- nodeEnv %>';
+    if (nodeEnv === 'development') {
+        let jsFiles = '<%- jsFiles %>';
+        let body = document.querySelector('body');
+        let script = document.createElement('script');
+        script.src = "./scriptsDev/js/" + jsFiles + ".js";
+        body.appendChild(script);
+    } 
+</script>
+</html>

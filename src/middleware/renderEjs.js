@@ -9,6 +9,7 @@ module.exports = function renderEjs () {
                 // 开发模式下，需要引用webpack-dev-middleware打包到内存的资源，jsFiles是对应js资源的路径
                 data.jsFiles = `${fileName}`; 
             }
+            data.hostname = req.hostname;
             res.render(ejs, data);
         };
         res.renderEjs = renderEjs;

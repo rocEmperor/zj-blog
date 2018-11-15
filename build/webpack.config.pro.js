@@ -55,13 +55,15 @@ config.module.rules = [
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
             fallback: "style-loader",
-            use: ["css-loader", "postcss-loader"]
+            use: ["css-loader", "postcss-loader"],
+            publicPath: '../' // 正常情况下打包css文件，里面的图片路径会相对与当前打包下的文件夹，导致图片资源引用出错，设置publicPath可以改变资源路径
         })
     }, {
         test: /\.less$/,
         use: ExtractTextPlugin.extract({
             fallback: "style-loader",
-            use: ["css-loader", "postcss-loader", "less-loader"]
+            use: ["css-loader", "postcss-loader", "less-loader"],
+            publicPath: '../' // 正常情况下打包css文件，里面的图片路径会相对与当前打包下的文件夹，导致图片资源引用出错，设置publicPath可以改变资源路径
         })
     }, {
         test: /\.(png|jpg|gif)$/,
@@ -70,7 +72,8 @@ config.module.rules = [
                 loader: 'url-loader',
                 options: {
                     limit: 8192,
-                    name: 'imgs/[name]-[hash:8].[ext]'
+                    outputPath: "images/",
+                    name: '[name]-[hash:8].[ext]'
                 }
             },
             {
